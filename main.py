@@ -106,8 +106,8 @@ def evaluation_genomes(genomes, config):
 
 def run_neat(config):
     # Para carregar a partir de um check point descomente a linha a baixo e comente: population = neat.Population(config)
-    #population = neat.Checkpointer.restore_checkpoint('neat-checkpoint-1')
-    population = neat.Population(config)
+    population = neat.Checkpointer.restore_checkpoint('neat-checkpoint-40')
+    #population = neat.Population(config)
 
     population.add_reporter(neat.StdOutReporter(True))
     statistics_reporter = neat.StatisticsReporter()
@@ -115,7 +115,7 @@ def run_neat(config):
     # Salva o estado e permite reiniciar o algoritimo em um determinado ponto, em numero de gerações. 
     population.add_reporter(neat.Checkpointer(1))
 
-    winner = population.run(evaluation_genomes, 50)
+    winner = population.run(evaluation_genomes, 1)
     with open("best.pickle", "wb") as file:
         pickle.dump(winner, file)
 
@@ -139,5 +139,5 @@ if __name__ == "__main__":
                          neat.DefaultStagnation, 
                          config_path)
 
-    run_neat(config)
-    #load_best_winner(config)
+    #run_neat(config)
+    load_best_winner(config)
